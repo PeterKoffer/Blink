@@ -48,12 +48,32 @@ python scripts/run_migrations.py
 # uvicorn blink.app:app --reload
 ```
 
+## Prototype (high-fidelity UI)
+
+`frontend/prototype/kidschat_demo.py` er en **high-fidelity prototype** af
+Blink-appen — ikke produktions-frontend. Den bruges til at iterere på UI,
+copy og flows. Den serverer en selvstændig HTML/JS-side på port 8765 og
+kan valgfrit tale med den rigtige backend via `frontend/blink_api_client.js`.
+
+```bash
+# Start prototypen (bruger standard Python, ingen deps)
+python3 frontend/prototype/kidschat_demo.py
+# → åbn http://127.0.0.1:8765
+```
+
+For at tale med en kørende backend: start backenden først (ovenfor), og
+sæt `USE_BACKEND = true` i prototypen. Ellers kører prototypen i pure
+demo-mode med mock-data.
+
 ## Projektstruktur
 
 ```
 blink/
 ├── migrations/              # rå SQL, versionerede fra 001_
 ├── scripts/run_migrations.py
+├── frontend/
+│   ├── blink_api_client.js          # drop-in API-klient
+│   └── prototype/kidschat_demo.py   # high-fidelity prototype (ikke prod)
 └── src/blink/
     ├── config.py            # env → typed settings
     ├── db.py                # asyncpg pool
